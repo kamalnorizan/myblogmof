@@ -20,14 +20,13 @@ class Post extends Model
     protected $guarded = ['id'];
 
 
-    public function comments()
-    {
-        return $this->hasMany(Comment::class, 'post_id', 'id');
-    }
-
-
     public function user()
     {
         return $this->belongsTo(User::class, 'author', 'id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'post_id', 'id');
     }
 }
