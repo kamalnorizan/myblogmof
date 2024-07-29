@@ -48,4 +48,14 @@ class User extends Authenticatable
     function getRouteKeyName(){
         return 'uuid';
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'author', 'id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'user_id', 'id');
+    }
 }
