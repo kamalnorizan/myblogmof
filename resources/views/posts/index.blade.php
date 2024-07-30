@@ -22,9 +22,9 @@
                         {{ $post->content }}
                     </p>
                     <hr>
-                    <h3>Comments</h3>
+                    <h3>Comments ({{ $post->comments->count() }})</h3>
                     @foreach ($post->comments as $comment)
-                        <p><strong>{{ $comment->user->name }}</strong> {{ $comment->content }}</p>
+                        <p><strong>{{ $comment->user->name }}({{ $comment->user->posts->count() }})</strong> {{ $comment->content }}</p>
                     @endforeach
                 </div>
             </div>

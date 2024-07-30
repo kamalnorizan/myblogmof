@@ -19,10 +19,13 @@ class PostController extends Controller
         // },'comments.user'=>function($q){
         //     $q->select('id','name');
         // }])->get();
-        $posts = Post::all();
+        $posts = Post::withCount('comments')->get();
+        // dd($posts);
         // 57498
         // return response()->json($posts);
-        return view('posts.index', compact('posts'));
+        // dd($posts->first());
+        // return view('posts.index', compact('posts'));
+        return view('posts.comment', compact('posts'));
 
     }
 
