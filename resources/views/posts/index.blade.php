@@ -24,7 +24,7 @@
                     <hr>
                     <h3>Comments ({{ $post->comments->count() }})</h3>
                     @foreach ($post->comments as $comment)
-                        <p><strong>{{ $comment->user->name }}({{ $comment->user->posts->count() }})</strong> {{ $comment->content }}</p>
+                        <p><strong>{{ $comment->user->id.') '.$comment->user->name }}({{ $comment->user->posts->count() }})</strong> {{ $comment->content }}</p>
                     @endforeach
                 </div>
             </div>
