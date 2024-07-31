@@ -16,7 +16,7 @@
             <div class="card mt-3">
                 <div class="card-body">
                     <h4 class="card-title">
-                        {{ $post->title }} <small>~ {{ $post->user->name }} (<i>{{ $post->user->email }}</i>)</small>
+                        <a href="{{ route('posts.show', ['post'=>$post->uuid]) }}"> {{ $post->title }}</a> <small>~ {{ $post->user->name }} (<i>{{ $post->user->email }}</i>)</small>
                     </h4>
                     <p class="card-text">
                         {{ $post->content }}
