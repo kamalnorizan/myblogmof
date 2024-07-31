@@ -26,4 +26,14 @@ class CommentStoreRequest extends FormRequest
             'content'=>'required|min:10'
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'author.required'=>'Author is required',
+            'author.exists'=>'Author is not exists',
+            'content.required'=>'Content is required',
+            'content.min'=>'Content must be at least 10 characters'
+        ];
+    }
 }

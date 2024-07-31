@@ -90,9 +90,26 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'author' => 'required',
+            'content' => 'required|min:10'
+        ],[
+            'title.required' => 'Sila masukkan tajuk',
+            'author.required' => 'Sila pilih penulis',
+            'content.required' => 'Sila masukkan kandungan',
+            'content.min' => 'Kandungan mesti sekurang-kurangnya 10 aksara'
+        ]);
+
+        $post = Post::where('uuid',$request->uuid)->first();
+        $post->title = $request->title;
+        $post->author = $request->author;
+        $post->content = $request->content;
+        $post->save();
+
+        return response()->json(['status'=>'success']);
     }
 
     /**
