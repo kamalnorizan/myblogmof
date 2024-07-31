@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -60,8 +61,10 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
+        $users = User::pluck('name','id');
+        // dd($users);
         $post = $post->load('user.posts','comments.user.posts');
-        return view('posts.show',compact('post'));
+        return view('posts.show',compact('post','users'));
 
     }
 
