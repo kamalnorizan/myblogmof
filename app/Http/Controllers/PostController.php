@@ -41,6 +41,16 @@ class PostController extends Controller
 
     }
 
+    function ajaxloadpost(Request $request) {
+        try {
+            $post = Post::where('uuid',$request->uuid)->first();
+        } catch (\Throwable $th) {
+            abort(404);
+        }
+
+        return response()->json($post);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
