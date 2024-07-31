@@ -18,17 +18,17 @@ class PostController extends Controller
         //     $q->select('post_id','content','user_id');
         // },'comments.user'=>function($q){
         //     $q->select('id','name');
-        // }])->get();
-        $posts = Post::whereHas('comments',function($query){
-            $query->where('user_id',3);
-        })->get();
+        // }])->first();
 
-        $posts = Post::whereHas('comments',function($query){
-            $query->where('user_id',3);
-        })->with(['comments'=>function($query){
-            $query->where('user_id',3);
-        }])->get();
 
+        $posts = Post::whereHas('comments')->get();
+
+        // $posts = Post::with(['comments'=>function($query){
+        //     $query->where('user_id',3);
+        // }])->whereHas('comments',function($query){
+        //     $query->where('user_id',3)->where('id','>','7');
+        // })->get();
+        // dd($posts);
         // $posts = Post::whereDoesntHave('comments')->count();
         // dd($posts);
         // 57498
