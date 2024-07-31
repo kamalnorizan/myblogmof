@@ -12,16 +12,16 @@ class PostController extends Controller
      */
     public function index()
     {
-        // $posts = Post::select('id','title','content','author')->with(['user'=>function($q){
-        //     $q->select('id','name','email');
-        // },'comments'=>function($q){
-        //     $q->select('post_id','content','user_id');
-        // },'comments.user'=>function($q){
-        //     $q->select('id','name');
-        // }])->first();
+        $posts = Post::select('id','uuid','title','content','author')->with(['user'=>function($q){
+            $q->select('id','name','email');
+        },'comments'=>function($q){
+            $q->select('post_id','content','user_id');
+        },'comments.user'=>function($q){
+            $q->select('id','name');
+        }])->get();
 
 
-        $posts = Post::whereHas('comments')->get();
+        // $posts = Post::whereHas('comments')->get();
 
         // $posts = Post::with(['comments'=>function($query){
         //     $query->where('user_id',3);
@@ -60,7 +60,9 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        dd($post);
+        $post = $post->load('user.posts','comments.user.posts');
+        return view('posts.show',compact('post'));
+
     }
 
     /**
