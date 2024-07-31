@@ -26,7 +26,7 @@
                     <hr>
                     <h3>Comments ({{ $post->comments->count() }})</h3>
                     @foreach ($post->comments as $comment)
-                        <p><strong>{{ $comment->user->id.') '.$comment->user->name }}({{ $comment->user->posts->count() }})</strong> {{ $comment->content }}</p>
+                        <p><strong>{{ $comment->user->id.') '.$comment->user->name }}({{ $comment->user->posts->count() }})</strong> {{ $comment->content }} <button type="button" class="btn btn-danger btn-sm btn-delete" data-uuid="{{ $comment->uuid }}">Delete</button></p>
                     @endforeach
                 </div>
             </div>
@@ -130,7 +130,6 @@
                       text: "The post already succesfully updated",
                       icon: "success",
                     }).then(function(){
-                        // window.location.reload();
                         editBtn.closest('.card-body').find('h4 a').text($('#title').val());
                         editBtn.closest('.card-body').find('.postContent').text($('#content').val());
                         $('#editPost-mdl').modal('hide');
@@ -142,6 +141,49 @@
                     $.each(errors, function (indexInArray, valueOfElement) {
                         $('#'+indexInArray).addClass('is-invalid');
                         $('#'+indexInArray).closest('.form-group').find('.text-danger').text(valueOfElement[0]);
+                    });
+                }
+            });
+        });
+
+        $(document).on("click",".btn-delete",function (e) {
+            var uuid = $(this).attr('data-uuid');
+            var btn = $(this);
+
+            swal({
+                title: "Adakah anda pasti?",
+                text: "Tindakan anda tidak akan dapat diundurkan!",
+                icon: "warning",
+                buttons: {cancel: {
+                    text: "Batal",
+                    value: null,
+                    visible: true,
+                    className: "",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "Ya, Saya pasti",
+                    value: true,
+                    visible: true,
+                    className: "btn-danger",
+                    closeModal: true
+                }}
+            }).then((value)=>{
+
+                if(value==true){
+                    $.ajax({
+                        type: "post",
+                        url: "{{ route('comment.delete') }}",
+                        data: {
+                            _token: '{{csrf_token()}}',
+                            uuid: uuid
+                        },
+                        dataType: "json",
+                        success: function (response) {
+                            $(btn).closest('p').remove();
+                            swal("Deleted!", "Comment telah berjaya di padam", "success");
+
+                        }
                     });
                 }
             });

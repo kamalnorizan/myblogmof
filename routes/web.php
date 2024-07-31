@@ -24,3 +24,4 @@ Route::post('posts/update',[PostController::class, 'update'])->name('posts.updat
 
 
 Route::post('comment',[CommentController::class,'store'])->name('comment.store');
+Route::post('comment/delete',[CommentController::class,'delete'])->name('comment.delete');

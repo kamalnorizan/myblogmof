@@ -22,4 +22,11 @@ class CommentController extends Controller
 
         return redirect()->route('posts.show',['post'=>$post->uuid]);
     }
+
+    function delete(Request $request) {
+        $comment = Comment::where('uuid',$request->uuid)->first();
+        $comment->delete();
+
+        return response()->json(['status'=>'success']);
+    }
 }

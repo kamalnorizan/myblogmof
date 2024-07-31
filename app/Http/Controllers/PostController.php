@@ -16,7 +16,7 @@ class PostController extends Controller
         $posts = Post::select('id','uuid','title','content','author')->with(['user'=>function($q){
             $q->select('id','name','email');
         },'comments'=>function($q){
-            $q->select('post_id','content','user_id');
+            $q->select('post_id','content','uuid','user_id');
         },'comments.user'=>function($q){
             $q->select('id','name');
         }])->get();
