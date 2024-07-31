@@ -35,7 +35,8 @@ class PostController extends Controller
         // 57498
         // return response()->json($posts);
         // dd($posts->first());
-        return view('posts.index', compact('posts'));
+        $users = User::pluck('name','id');
+        return view('posts.index', compact('posts','users'));
         // return view('posts.comment', compact('posts'));
 
     }
