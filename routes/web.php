@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
@@ -17,3 +18,6 @@ Route::get('/users/{user}/show', function (User $user) {
 });
 
 Route::get('posts',[PostController::class, 'index'])->name('posts.index');
+
+
+Route::get('users',[UserController::class, 'index'])->name('users.index');
